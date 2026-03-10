@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Yousif Ashara — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ink: #0D0D0D;
+    --teal: #006B6B;
+    --teal-light: #008F8F;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --warm-gray: #B8B0A0;
+    --card-bg: #FDFAF4;
+    --border: rgba(13,13,13,0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+    opacity: 0.6; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 6rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 2rem; height: 1px; background: var(--teal);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--teal);
+  }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 400; font-style: italic;
+    color: var(--warm-gray);
+    margin-bottom: 2.5rem;
+    line-height: 1.4;
+  }
+  .hero-desc {
+    font-size: 0.95rem; line-height: 1.8;
+    color: rgba(13,13,13,0.7);
+    max-width: 38ch;
+    margin-bottom: 3rem;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--teal); color: white;
+    padding: 0.9rem 2rem; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.25s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1.5px solid var(--ink); color: var(--ink);
+    padding: 0.9rem 2rem; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--teal) 0%, #004040 50%, #001a1a 100%);
+    z-index: 0;
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; z-index: 1; opacity: 0.08;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px);
+  }
+  .hero-stats {
+    position: absolute; bottom: 4rem; left: 3rem; right: 3rem;
+    z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: rgba(255,255,255,0.1);
+  }
+  .stat-card {
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    padding: 1.8rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 900;
+    color: white; line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .hero-big-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 11rem; font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    white-space: nowrap;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 7rem 6rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 2rem; height: 1px; background: var(--teal);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+  .section-title span { font-style: italic; color: var(--teal); }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--ink);
+    color: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about .section-label { color: var(--gold); }
+  .about .section-label::before { background: var(--gold); }
+  .about .section-title { color: var(--cream); margin-bottom: 1.8rem; }
+  .about .section-title span { color: var(--gold); }
+  .about-text { font-size: 1.05rem; line-height: 1.9; color: rgba(245,240,232,0.7); }
+  .about-details {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: rgba(245,240,232,0.08);
+    margin-top: 3rem;
+  }
+  .detail-item {
+    background: rgba(245,240,232,0.03);
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(245,240,232,0.06);
+  }
+  .detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .detail-value { font-size: 0.88rem; color: rgba(245,240,232,0.8); }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--cream); }
+  .exp-grid { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    transition: all 0.3s;
+  }
+  .exp-item:hover { background: rgba(0,107,107,0.02); }
+  .exp-item:hover .exp-number { color: var(--teal); }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; color: var(--warm-gray);
+    letter-spacing: 0.08em;
+    padding-top: 0.3rem;
+  }
+  .exp-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 900;
+    color: rgba(13,13,13,0.06);
+    line-height: 1; margin-bottom: -0.5rem;
+    transition: color 0.3s;
+  }
+  .exp-body {}
+  .exp-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.4rem;
+  }
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .exp-bullets {
+    list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .exp-bullets li {
+    font-size: 0.88rem; line-height: 1.7; color: rgba(13,13,13,0.65);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--teal); font-size: 0.75rem;
+  }
+  .exp-tag {
+    display: inline-block;
+    background: rgba(0,107,107,0.08);
+    color: var(--teal);
+    border: 1px solid rgba(0,107,107,0.2);
+    padding: 0.2rem 0.7rem;
+    border-radius: 2px;
+    font-size: 0.68rem; letter-spacing: 0.08em;
+    margin-top: 0.8rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills {
+    background: var(--card-bg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .skill-group { margin-bottom: 2.5rem; }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--warm-gray); margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    border: 1.5px solid var(--border);
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem; font-weight: 500;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover {
+    border-color: var(--teal);
+    background: rgba(0,107,107,0.05);
+    color: var(--teal);
+  }
+  .skill-tag.highlight {
+    background: var(--teal); color: white; border-color: var(--teal);
+  }
+  .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .lang-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    border-radius: 2px;
+  }
+  .lang-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem;
+  }
+  .lang-level {
+    font-size: 0.72rem; color: var(--warm-gray);
+    font-family: 'DM Mono', monospace;
+  }
+  .lang-bar {
+    height: 3px;
+    background: rgba(0,107,107,0.12);
+    border-radius: 2px;
+    margin-top: 0.6rem;
+    overflow: hidden;
+  }
+  .lang-fill {
+    height: 100%; background: var(--teal);
+    border-radius: 2px;
+    animation: fillBar 1.5s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes fillBar { from { width: 0; } }
+
+  /* ── EDUCATION ── */
+  .education { background: var(--cream); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+  .edu-degree {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .edu-school {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .edu-field {
+    font-size: 0.88rem; color: rgba(13,13,13,0.6); margin-bottom: 1rem;
+  }
+  .edu-meta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    border-top: 1px solid var(--border); padding-top: 1rem;
+  }
+  .edu-meta span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--warm-gray);
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .edu-gpa {
+    display: inline-block;
+    background: rgba(201,168,76,0.12); color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.2rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; border-radius: 2px;
+    margin-top: 0.8rem;
+  }
+
+  /* ── PUBLICATION ── */
+  .publication { background: var(--ink); color: var(--cream); }
+  .publication .section-label { color: var(--gold); }
+  .publication .section-label::before { background: var(--gold); }
+  .publication .section-title { color: var(--cream); }
+  .publication .section-title span { color: var(--gold); }
+  .pub-card {
+    background: rgba(245,240,232,0.04);
+    border: 1px solid rgba(245,240,232,0.08);
+    padding: 3rem;
+    position: relative;
+    max-width: 800px;
+  }
+  .pub-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; line-height: 1.8; font-style: italic;
+    color: rgba(245,240,232,0.8);
+    margin-bottom: 1.5rem;
+  }
+  .pub-meta {
+    display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+  }
+  .pub-tag {
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.72rem; font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em; border-radius: 2px;
+  }
+  .pub-link {
+    font-size: 0.78rem; color: rgba(245,240,232,0.4);
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .pub-link:hover { color: var(--gold); }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: start;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--ink);
+    transition: all 0.25s;
+    group: true;
+  }
+  .contact-link:hover { padding-left: 0.5rem; }
+  .contact-link:hover .contact-icon { background: var(--teal); color: white; }
+  .contact-icon {
+    width: 42px; height: 42px;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: all 0.25s;
+    flex-shrink: 0;
+  }
+  .contact-info {}
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--warm-gray); margin-bottom: 0.2rem;
+  }
+  .contact-value { font-size: 0.9rem; font-weight: 500; }
+  .contact-form {}
+  .form-group { margin-bottom: 1.5rem; }
+  .form-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--warm-gray); display: block; margin-bottom: 0.5rem;
+  }
+  .form-input, .form-textarea {
+    width: 100%; background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--ink);
+    outline: none; transition: border-color 0.25s;
+    border-radius: 2px;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--teal); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(245,240,232,0.4);
+    padding: 2.5rem 6rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 7rem 2rem 3rem; }
+    .hero-right { height: 400px; }
+    section { padding: 4rem 2rem; }
+    .about, .skills, .education, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">S.Y. Ashara</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow fade-up">Pharmaceutical Professional</p>
+    <h1 class="hero-title fade-up">Stephen<br><em>Yousif</em><br>Ashara</h1>
+    <p class="hero-subtitle fade-up">QA & Supply Chain Specialist</p>
+    <p class="hero-desc fade-up">
+      6+ years advancing equitable healthcare delivery in South Sudan — strengthening pharmaceutical systems, ensuring drug quality, and improving access to essential medicines for donor-funded programs.
+    </p>
+    <div class="hero-cta fade-up">
+      <a href="#experience" class="btn-primary">View Experience →</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-pattern"></div>
+    <div class="hero-big-text">QA</div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">6+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3.8</div>
+        <div class="stat-label">GPA / 4.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4+</div>
+        <div class="stat-label">Major Roles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Interns Mentored</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="fade-up">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Dedicated to <span>Public Health</span> in South Sudan</h2>
+    <p class="about-text">
+      Passionate about advancing equitable healthcare delivery, I am a pharmaceutical professional with deep expertise in Quality Assurance and Supply Chain Management. Working with leading international organisations — UNICEF, Global Fund, Carter Center, Crown Agents — I have built robust pharmaceutical systems that directly impact millions of lives.
+    </p>
+    <div class="about-details">
+      <div class="detail-item">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Juba, South Sudan</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Date of Birth</div>
+        <div class="detail-value">26 March 1997</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Email</div>
+        <div class="detail-value">stephenyousif07@gmail.com</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">LinkedIn</div>
+        <div class="detail-value"><a href="https://www.linkedin.com/in/stephen-yousif-69a337110/" style="color:var(--gold);text-decoration:none;">View Profile →</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="fade-up">
+    <div style="background:rgba(245,240,232,0.03);border:1px solid rgba(245,240,232,0.07);padding:3rem;">
+      <p style="font-family:'Playfair Display',serif;font-size:1.5rem;line-height:1.7;font-style:italic;color:rgba(245,240,232,0.75);">
+        "Committed to strengthening pharmaceutical systems, improving access to safe medications, and addressing challenges in one of the world's most demanding healthcare environments."
+      </p>
+      <div style="margin-top:2rem;height:1px;background:rgba(201,168,76,0.3)"></div>
+      <p style="margin-top:1.2rem;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;color:rgba(201,168,76,0.7);">— STEPHEN YOUSIF ASHARA</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <p class="section-label fade-up">Career</p>
+  <h2 class="section-title fade-up">Work <span>Experience</span></h2>
+
+  <div class="exp-grid">
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">01</div>
+        <div class="exp-date">Sep 2025 — Present</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">The Carter Center South Sudan</p>
+        <h3 class="exp-role">Program Officer / QA Specialist</h3>
+        <ul class="exp-bullets">
+          <li>Supporting implementation of quality assurance systems for health commodity management and distribution.</li>
+          <li>Providing technical assistance to strengthen pharmaceutical supply chain protocols.</li>
+          <li>Conducting field visits to assess compliance and mentor on Good Distribution Practices (GDP).</li>
+          <li>Developing and rolling out pharmacovigilance training materials for health workers.</li>
+        </ul>
+        <span class="exp-tag">Quality Assurance · GDP · Pharmacovigilance</span>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">02</div>
+        <div class="exp-date">Nov 2020 — Aug 2025</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">Ministry of Health, South Sudan</p>
+        <h3 class="exp-role">Pharmacist QA/CMS — Central Medical Stores</h3>
+        <ul class="exp-bullets">
+          <li>Oversaw QA processes for receipt, storage, and dispatch of life-saving health commodities at national level.</li>
+          <li>Participated in pharmacovigilance supervision and field monitoring for medicines and vaccines.</li>
+          <li>Supported quality management systems aligned with WHO guidelines and ISO/IEC 17025 principles.</li>
+          <li>Engaged with HIV, malaria, TB, and immunization supply systems to ensure regulatory compliance.</li>
+        </ul>
+        <span class="exp-tag">WHO · ISO/IEC 17025 · National Health Programs</span>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">03</div>
+        <div class="exp-date">Apr 2024 — Aug 2024</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">Crown Agents</p>
+        <h3 class="exp-role">Quality Assurance Specialist</h3>
+        <ul class="exp-bullets">
+          <li>Assisted 3PL Operations under UNICEF contract in support of South Sudan Multi Donor Trust Fund.</li>
+          <li>Supported data collection, analysis and Pick & Pack operations within the warehouse.</li>
+          <li>Maintained logistical documentation using Cargo Wise system.</li>
+        </ul>
+        <span class="exp-tag">UNICEF · 3PL · Cargo Wise</span>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">04</div>
+        <div class="exp-date">Apr 2023 — Apr 2024</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">Crown Agents</p>
+        <h3 class="exp-role">Supply Chain Officer</h3>
+        <ul class="exp-bullets">
+          <li>Collaborated with Supply Chain Technical Adviser to support UNICEF procurement and distribution.</li>
+          <li>Managed Last Mile Distribution teams for timely delivery to health facilities.</li>
+          <li>Conducted supervisory visits to county stores, hospitals, and PHC facilities.</li>
+        </ul>
+        <span class="exp-tag">Last Mile Distribution · Procurement · UNICEF</span>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">05</div>
+        <div class="exp-date">Feb 2022 — Jan 2023</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">Ministry of Health, South Sudan</p>
+        <h3 class="exp-role">Procurement & Supply Chain Manager (PSM)</h3>
+        <ul class="exp-bullets">
+          <li>Coordinated with UNDP and WHO for timely procurement from Global Drug Facility and WHO pre-qualified sources.</li>
+          <li>Developed training programs for drug store managers to improve storage management systems.</li>
+          <li>Organised stakeholder TWG meetings to review supply chain challenges.</li>
+        </ul>
+        <span class="exp-tag">UNDP · WHO · Global Drug Facility</span>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div>
+        <div class="exp-number">06</div>
+        <div class="exp-date">Jun 2020 — Present</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-org">Royal Care Pharmacy</p>
+        <h3 class="exp-role">Community Pharmacist</h3>
+        <ul class="exp-bullets">
+          <li>Dispensed medications, corrected prescription errors, and adjusted doses to prevent adverse effects.</li>
+          <li>Managed daily procurement of medications and maintained full inventory systems.</li>
+          <li>Mentored 15+ pharmacy technician interns, improving overall pharmacy performance by 25%.</li>
+        </ul>
+        <span class="exp-tag">Clinical Pharmacy · Mentorship · Inventory</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="fade-up">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Skills &<br><span>Competencies</span></h2>
+    <div class="skill-group">
+      <p class="skill-group-title">Technical Skills</p>
+      <div class="skill-tags">
+        <span class="skill-tag highlight">Quality Assurance</span>
+        <span class="skill-tag highlight">Supply Chain Management</span>
+        <span class="skill-tag highlight">GDP / GLP</span>
+        <span class="skill-tag">ISO 9001 QMS</span>
+        <span class="skill-tag">Pharmacovigilance</span>
+        <span class="skill-tag">Procurement</span>
+        <span class="skill-tag">QuanTB</span>
+        <span class="skill-tag">Cargo Wise</span>
+        <span class="skill-tag">Microsoft Excel</span>
+        <span class="skill-tag">Microsoft Office</span>
+        <span class="skill-tag">WordPress</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Data Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-title">Soft Skills</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Effective Communication</span>
+        <span class="skill-tag">Critical Thinking</span>
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">Negotiation</span>
+        <span class="skill-tag">Conflict Resolution</span>
+        <span class="skill-tag">Adaptability</span>
+        <span class="skill-tag">Time Management</span>
+        <span class="skill-tag">Problem Solving</span>
+      </div>
+    </div>
+  </div>
+  <div class="fade-up">
+    <p class="section-label">Languages</p>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:1.5rem;">Communication<br><span style="font-style:italic;color:var(--teal);">Fluency</span></h3>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-name">English</div>
+        <div class="lang-level">Fluent</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Arabic</div>
+        <div class="lang-level">Native / Bilingual</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem;background:rgba(0,107,107,0.06);border:1px solid rgba(0,107,107,0.12);padding:2rem;">
+      <p style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;">Key Certifications &amp; Standards</p>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        <p style="font-size:0.85rem;color:rgba(13,13,13,0.7);">✦ Good Distribution Practices (GDP)</p>
+        <p style="font-size:0.85rem;color:rgba(13,13,13,0.7);">✦ Good Laboratory Practices (GLP)</p>
+        <p style="font-size:0.85rem;color:rgba(13,13,13,0.7);">✦ ISO 9001 Quality Management Systems</p>
+        <p style="font-size:0.85rem;color:rgba(13,13,13,0.7);">✦ ISO/IEC 17025 Laboratory Standards</p>
+        <p style="font-size:0.85rem;color:rgba(13,13,13,0.7);">✦ WHO Pre-qualified Procurement</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <p class="section-label fade-up">Academic Background</p>
+  <h2 class="section-title fade-up">Education &<br><span>Qualifications</span></h2>
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <p class="edu-degree">Masters Degree · EQF Level 7</p>
+      <h3 class="edu-school">University of Rwanda</h3>
+      <p class="edu-field">MSc Pharmaceutical Analysis & Quality Assurance (MPAQA)</p>
+      <div class="edu-meta">
+        <span>📍 Kigali, Rwanda (Online)</span>
+        <span>📅 2023 – Expected 2026</span>
+      </div>
+    </div>
+    <div class="edu-card">
+      <p class="edu-degree">Bachelor's Degree · EQF Level 7</p>
+      <h3 class="edu-school">Mizan-Tepi University</h3>
+      <p class="edu-field">Degree in Pharmacy</p>
+      <div class="edu-gpa">GPA: 3.8 / 4.0 — Distinction</div>
+      <div class="edu-meta" style="margin-top:0.8rem;">
+        <span>📍 Mizan-Tepi, Ethiopia</span>
+        <span>📅 2015 – 2019</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section class="publication" id="publication">
+  <p class="section-label fade-up">Research</p>
+  <h2 class="section-title fade-up">Published <span>Work</span></h2>
+  <div class="pub-card fade-up">
+    <p class="pub-quote">
+      "Disposal Practices of Unused and Expired Medications among the General Public in Mizan-Aman, Southwest Ethiopia: A Cross-sectional Study."
+    </p>
+    <div class="pub-meta">
+      <span class="pub-tag">Co-authored · 2019</span>
+      <span class="pub-tag">Cross-sectional Study</span>
+      <a href="https://www.ijmrhs.com/medical-research/knowledge-attitude-and-disposal-practices-of-unused-and-expired-medicationsamong-the-general-public-in-mizanaman-southw.pdf" class="pub-link" target="_blank">Read Publication →</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:rgba(245,240,232,0.3);font-family:'DM Mono',monospace;">Co-authored with Jafer Siraj · IJMRHS Journal</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="fade-up">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Let's <span>Connect</span></h2>
+    <p style="font-size:0.9rem;line-height:1.8;color:rgba(13,13,13,0.6);margin-bottom:2.5rem;max-width:36ch;">
+      Open to new opportunities, collaborations, and partnerships in pharmaceutical public health and supply chain management.
+    </p>
+    <a href="tel:+211922558357" class="contact-link">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info">
+        <p class="contact-label">Phone</p>
+        <p class="contact-value">+(211) 922-558357</p>
+      </div>
+    </a>
+    <a href="mailto:stephenyousif07@gmail.com" class="contact-link">
+      <div class="contact-icon">✉</div>
+      <div class="contact-info">
+        <p class="contact-label">Email</p>
+        <p class="contact-value">stephenyousif07@gmail.com</p>
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/stephen-yousif-69a337110/" class="contact-link" target="_blank">
+      <div class="contact-icon">in</div>
+      <div class="contact-info">
+        <p class="contact-label">LinkedIn</p>
+        <p class="contact-value">stephen-yousif-69a337110</p>
+      </div>
+    </a>
+    <a href="#" class="contact-link">
+      <div class="contact-icon">📍</div>
+      <div class="contact-info">
+        <p class="contact-label">Location</p>
+        <p class="contact-value">Hai-Cinema, Juba, South Sudan</p>
+      </div>
+    </a>
+  </div>
+  <div class="fade-up">
+    <p style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm-gray);margin-bottom:1.5rem;">Send a Message</p>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="How can I help you?"></textarea>
+      </div>
+      <button class="btn-primary" style="border:none;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="alert('Thank you! Your message has been sent.')">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Stephen Yousif Ashara. All rights reserved.</span>
+  <span>Pharmaceutical QA & Supply Chain Specialist · Juba, South Sudan</span>
+  <a href="https://www.linkedin.com/in/stephen-yousif-69a337110/" target="_blank">LinkedIn ↗</a>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 100;
+    observer.observe(el);
+  });
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.opacity = a.getAttribute('href') === '#' + current ? '1' : '0.6';
+    });
+  });
+</script>
+</body>
+</html>
